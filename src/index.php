@@ -7,14 +7,14 @@ require_once 'footer.php';
 
 
 if (isset($_GET)) {
-    $edit = true;
+    $edit = $_SESSION['edit'];
     $task_id = $_SESSION['task_id'];
     $title =  $_SESSION['title'];
     $description =  $_SESSION['description'];
 } else {
     $edit = false;
-    $title = '';
-    $description = '';
+    $title = $_SESSION['title'];
+    $description =  $_SESSION['description'];
 }
 
 $dbparams = ['db', 'db', 'user', 'secret'];
@@ -115,7 +115,7 @@ $rows = getAllTasks($conn);
             <input type="text" name="description" value="<?php echo $description ?>" placeholder="Description for task" required />
             <?php
             if ($edit) :
-                //$title = $_SESSION['title'];
+                $edit = false;
                 //echo $title; ?>
                 <button type="submit" name="update">Update</button>
 

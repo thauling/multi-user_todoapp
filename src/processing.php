@@ -2,6 +2,10 @@
 //session_start();
 //echo 'processing.php loaded';
 
+$_SESSION['edit'] = false;
+$_SESSION['title'] = '';
+$_SESSION['description'] = '';
+
 $task_id = 0;
 $edit = false;
 $title = "";
@@ -44,6 +48,10 @@ if (isset($_POST['update'])) {
     $conn = connectToDbPdo($dbparams);
     echo  $_POST['title'] . $_POST['description'] . $_POST['task_id'];
     updateTask($conn,  $_POST['title'], $_POST['description'], $_POST['task_id']);
+    $_SESSION['edit'] = false;
+    $_SESSION['title'] = '';
+    $_SESSION['description'] = '';
+   
 }
 
 
