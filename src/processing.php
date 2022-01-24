@@ -16,14 +16,14 @@ $dbparams = ['db', 'db', 'user', 'secret'];
 if (isset($_POST['save'])) {
     $conn = connectToDbPdo($dbparams);
     createTask($conn, $_POST['title'], $_POST['description']);
-    header("location: index.php");
+    header("location: tasks.php");
 }
 
 if (isset($_GET['delete'])) {
     // add if logic to check that id exists
     $conn = connectToDbPdo($dbparams);
     deleteTask($conn, $_GET['delete']);
-    header("location: index.php"); //ANY print needs t obe removed regardless whether or not it is invoked! W T F
+    //header("location: tasks.php"); //ANY print needs t obe removed regardless whether or not it is invoked! W T F
     //echo "<p> <strong> Reload page to see the change </strong> </p>";
 }
 
@@ -179,4 +179,4 @@ function deleteAllCompleted($conn) {
 
 
 // 
-//header('Location: index.php');
+//header('Location: tasks.php');

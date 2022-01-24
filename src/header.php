@@ -13,7 +13,7 @@
     <nav class="navbar-main">
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="tasks.php">Tasks</a></li>
         </ul>
     </nav>
 </header>
