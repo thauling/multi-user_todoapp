@@ -82,8 +82,8 @@ function createTask($conn, $title, $description){
     $sql = "INSERT INTO tasks (title, description) VALUES (:title, :description)";   
     $stmt = $conn->prepare($sql); //because named params are not natively supported by mysqli
     $stmt->execute([
-        ':title' => $title,
-        ':description' => $description
+        ':title' => htmlspecialchars($title),
+        ':description' => htmlspecialchars($description)
     ]);
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -123,8 +123,8 @@ function updateTask($conn, $title, $description, $task_id){
     $sql = "UPDATE tasks set title = :title, description = :description WHERE task_id = :task_id";
     $stmt = $conn->prepare($sql); //because named params are not natively supported by mysqli
     $stmt->execute([
-        ':title' => $title,
-        ':description' => $description,
+        ':title' => htmlspecialchars($title),
+        ':description' => htmlspecialchars($description),
         ':task_id' => $task_id
     ]);
     } catch (Exception $e) {

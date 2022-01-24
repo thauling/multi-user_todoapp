@@ -84,6 +84,7 @@ $rows = getAllTasks($conn);
                     <th>Title</th>
                     <th>Description</th>
                     <th>Created</th>
+                    <th>Done?</th>
                 </tr>
             </thead>
             <?php
@@ -94,6 +95,7 @@ $rows = getAllTasks($conn);
                     <td><?= $row['description']; ?></td>
                     <!-- <td><?= $row['completed']; ?></td> -->
                     <td><?= $row['created']; ?></td>
+                    <td><?php if ($row['completed'] == 0) {echo 'nope';} else {echo 'bingo!';} ?></td>
                     <td>
                         <a href="index.php?edit=<?php echo $row['task_id']; ?>">Edit</a> <!-- needs to be GET method-->
                         <a href="processing.php?delete=<?php echo $row['task_id']; ?>">Delete</a> <!-- needs to be GET method-->
