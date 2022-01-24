@@ -54,7 +54,12 @@ if (isset($_POST['update'])) {
    
 }
 
+if (isset($_GET['completed'])) {
+    $conn = connectToDbPdo($dbparams);
+    echo $_GET['completed'];
+    completeTask($conn, $_GET['completed']);
 
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // functions
 
@@ -144,6 +149,27 @@ function deleteTask($conn, $task_id){
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
+}
+
+// label task as complete
+function completeTask($conn, $task_id){
+    try {
+    $sql = "UPDATE tasks set completed = 1 WHERE task_id = :task_id";
+    $stmt = $conn->prepare($sql); //because named params are not natively supported by mysqli
+    $stmt->execute([
+        ':task_id' => $task_id
+    ]);
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
+}
+
+function deleteAllTasks($conn) {
+    echo 'test';
+}
+
+function deleteAllCompleted($conn) {
+    echo 'test';
 }
 // 
 //header('Location: index.php');
