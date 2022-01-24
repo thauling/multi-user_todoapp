@@ -46,7 +46,7 @@ if (isset($_GET['edit'])) {
 
 if (isset($_POST['update'])) {
     $conn = connectToDbPdo($dbparams);
-    echo  $_POST['title'] . $_POST['description'] . $_POST['task_id'];
+    //echo  $_POST['title'] . $_POST['description'] . $_POST['task_id'];
     updateTask($conn,  $_POST['title'], $_POST['description'], $_POST['task_id']);
     $_SESSION['edit'] = false;
     $_SESSION['title'] = '';
@@ -56,8 +56,8 @@ if (isset($_POST['update'])) {
 
 if (isset($_GET['completed'])) {
     $conn = connectToDbPdo($dbparams);
-    echo $_GET['completed'];
-    completeTask($conn, $_GET['completed']);
+    //echo $_GET['completed'];
+    toggleCompleted($conn, $_GET['completed']);
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,12 +152,16 @@ function deleteTask($conn, $task_id){
 }
 
 // label task as complete
-function completeTask($conn, $task_id){
+function toggleCompleted($conn, $task_id){
     try {
-    $sql = "UPDATE tasks set completed = 1 WHERE task_id = :task_id";
+    $row = getOneRow($conn, $task_id);
+    $completed = $row['completed'];
+    //echo $completed;
+    $sql = "UPDATE tasks set completed = -:completed WHERE task_id = :task_id";
     $stmt = $conn->prepare($sql); //because named params are not natively supported by mysqli
     $stmt->execute([
-        ':task_id' => $task_id
+        ':task_id' => $task_id,
+        ':completed' => $completed
     ]);
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -171,5 +175,8 @@ function deleteAllTasks($conn) {
 function deleteAllCompleted($conn) {
     echo 'test';
 }
+
+
+
 // 
 //header('Location: index.php');
