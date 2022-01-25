@@ -9,13 +9,15 @@
     <link href="output.css" rel="stylesheet"> 
     <title>Lots of stuff to do!</title>
 </head>
-<body class="text-gray-600">
-<header>
-    <h1 class="text-sky-500 dark:text-sky-400 text-3xl font-bold uppercase">Lots of stuff to do!</h1>
+<body class="text-gray-900 bg-gray-300">
+   
+<header class="bg-gray-200">
+    <h1 class="text-sky-900 dark:text-sky-400 text-3xl font-bold uppercase">Lots of stuff to do!</h1>
     <nav class="text-gray-600">
-        <ul>
+        <ul class="flex items-center">
             <li class="font-bold"><a href="index.php">Home</a></li>
             <li><a href="tasks.php">Tasks</a></li>
         </ul>
     </nav>
 </header>
+  
