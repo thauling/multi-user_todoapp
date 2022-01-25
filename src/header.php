@@ -12,10 +12,10 @@
 <body class="text-gray-900 bg-gray-300">
    
 <header class="bg-gray-200">
-    <h1 class="text-sky-900 dark:text-sky-400 text-3xl font-bold uppercase">Lots of stuff to do!</h1>
-    <nav class="text-gray-600">
+    <h1 class="text-sky-900 text-3xl font-bold uppercase text-center pb-1">Lots of stuff to do!</h1>
+    <nav class="text-gray-600 pb-2">
         <ul class="flex items-center">
-            <li class="font-bold"><a href="index.php">Home</a></li>
+            <li class="font-bold pr-3 pl-2"><a href="index.php">Home</a></li>
             <li><a href="tasks.php">Tasks</a></li>
         </ul>
     </nav>

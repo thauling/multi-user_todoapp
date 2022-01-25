@@ -76,7 +76,7 @@ $rows = getAllTasks($conn);
 </head>
 
 <body>-->
-    <div class="p-4">
+    <div class="h-full w-full p-4 border-4 border-teal-400 bg-gray-100">
         <table>
             <thead>
                 <tr>
