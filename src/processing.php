@@ -17,6 +17,7 @@ if (isset($_POST['save'])) {
     $conn = connectToDbPdo($dbparams);
     createTask($conn, $_POST['title'], $_POST['description']);
     header("location: tasks.php");
+    exit(); // do I need this?
 }
 
 if (isset($_GET['delete'])) {
