@@ -80,11 +80,11 @@ $rows = getAllTasks($conn);
     <table class="bg-gray-300 m-0 p-0 table w-full">
         <thead class="table-header-group">
             <tr class="table-row">
-                <th class="bg-teal-400 border text-left px-1 py-1">ID</th>
-                <th class="bg-teal-400 border text-left px-1 py-1">Title</th>
-                <th class="bg-teal-400 border text-left px-1 py-1">Description</th>
-                <th class="bg-teal-400 border text-left px-1 py-1">Created</th>
-                <th class="bg-teal-400 border text-left px-1 py-1">Done?</th>
+                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">ID</th>
+                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Title</th>
+                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Description</th>
+                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Created</th>
+                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Done?</th>
             </tr>
         </thead>
         <?php

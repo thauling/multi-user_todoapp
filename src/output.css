@@ -566,16 +566,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -586,19 +576,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(15 118 110 / var(--tw-bg-opacity));
 }
 
-.bg-teal-400 {
+.bg-gray-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(45 212 191 / var(--tw-bg-opacity));
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
-.bg-gray-700 {
+.bg-gray-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 .bg-green-700 {
@@ -669,6 +664,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-transform: uppercase;
 }
 
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 .text-sky-900 {
   --tw-text-opacity: 1;
   color: rgb(12 74 110 / var(--tw-text-opacity));
@@ -682,11 +682,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .text-teal-900 {
