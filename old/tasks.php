@@ -13,7 +13,6 @@ if (isset($_GET)) {
     $description =  $_SESSION['description'];
 } else {
     $edit = false;
-    $task_id = $_SESSION['task_id'];
     $title = $_SESSION['title'];
     $description =  $_SESSION['description'];
 }
@@ -22,8 +21,61 @@ $dbparams = ['db', 'db', 'user', 'secret'];
 $conn = connectToDbPdo($dbparams);
 $rows = getAllTasks($conn);
 
-?>
+// if (isset($_POST['save'])) {
+//     createTask($conn, $_POST['title'], $_POST['description']);
+//     $_POST = null; //does not have the desired effect of resetting 
+//     $title = '';
+//     $description = '';
+// }
 
+// if (isset($_POST['update'])) {
+//     updateTask($conn, $_POST['title'],  $_POST['description'], $_POST['task_id']);
+//     $_POST = null; //does not have the desired effect of resetting 
+//     $title = '';
+//     $description = '';
+// }
+
+// if (isset($_GET['delete'])) {
+//     // add if logic to check that id exists
+//     deleteTask($conn, $_GET['delete']);
+//     header("location: tasks.php");
+//     //echo "<p> <strong> Reload page to see the change </strong> </p>";
+// }
+
+// if (isset($_GET['edit'])) {
+//     $edit = true;
+//     echo "<br>" . $_GET['edit'] . "<br>";
+//     $row = getOneRow($conn, $_GET['edit']);
+//     if (count($row) == 1) {
+
+
+//     }
+//     echo $row['title'] . "<br>" . $row['task_id'];
+//     if (isset($_POST['update'])) {
+//         //updateTask($conn, $_POST['title'],  $_POST['description'], $row['task_id']);
+//         echo "UPDATE pressed <br>" . $_POST['title'] . "<br>" . $_POST['description'] . "<br>" . $_POST['task_id'] . "<br>" . $row['task_id'] . "<br>";
+//     }
+// }
+
+
+?>
+<!--
+<script type="text/javascript">
+    //location.reload();
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>-->
 <div class="h-full w-full m-0 p-0 border-2 border-teal-400 bg-gray-100">
     <table class="bg-gray-300 m-0 p-0 table w-full">
         <thead class="table-header-group">

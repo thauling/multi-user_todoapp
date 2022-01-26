@@ -3,6 +3,7 @@
 //echo 'processing.php loaded';
 
 $_SESSION['edit'] = false;
+$_SESSION['task_id'] = 0;
 $_SESSION['title'] = '';
 $_SESSION['description'] = '';
 
