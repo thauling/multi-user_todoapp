@@ -24,7 +24,7 @@ $rows = getAllTasks($conn);
 
 ?>
 
-<div class="h-full w-full m-0 p-0 border-2 border-teal-400 bg-gray-100">
+<main class="h-full w-full m-0 p-0 border-2 border-teal-400 bg-gray-100">
     <table class="bg-gray-300 m-0 p-0 table w-full">
         <thead class="table-header-group">
             <tr class="table-row">
@@ -44,10 +44,10 @@ $rows = getAllTasks($conn);
                 <!-- <td><?= $row['completed']; ?></td> -->
                 <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?= $row['created']; ?></td>
                 <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?php if ($row['completed'] == -1) {
-                                                                        echo 'nope';
-                                                                    } else {
-                                                                        echo 'bingo!';
-                                                                    } ?></td>
+                                                                                            echo 'nope';
+                                                                                        } else {
+                                                                                            echo 'bingo!';
+                                                                                        } ?></td>
                 <td>
                     <a class="bg-gray-700 text-gray-200 mt-2 w-56 text-center" href="tasks.php?edit=<?php echo $row['task_id'];
                                                                                                     ?>">Edit</a> <!-- needs to be GET method-->
@@ -62,26 +62,26 @@ $rows = getAllTasks($conn);
             </tr>
         <?php endforeach; ?>
     </table>
-</div>
-<div class="h-full w-full m-1 p-1 border-1 border-gray-400 bg-gray-100">
-    <form class="flex flex-col content-center justify-items-center" method="post" action="tasks.php">
-        <input type="hidden" name="task_id" value="<?php echo $task_id; ?>" />
-        <label for="title">Write a title for your task:</label>
-        <input type="text" name="title" value="<?php echo $title ?>" placeholder="Title for task" required />
-        <label for="description">Write a description for your task:</label>
-        <input type="text" name="description" value="<?php echo $description ?>" placeholder="Description for task" required />
-        <?php
-        if ($edit) :
-            $edit = false;
-            //echo $title; 
-        ?>
-            <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="update">Update</button>
+    </div>
+    <div class="h-full w-full m-1 p-1 border-1 border-gray-400 bg-gray-100">
+        <form class="flex flex-col content-center justify-items-center" method="post" action="tasks.php">
+            <input type="hidden" name="task_id" value="<?php echo $task_id; ?>" />
+            <label for="title">Write a title for your task:</label>
+            <input type="text" name="title" value="<?php echo $title ?>" placeholder="Title for task" required />
+            <label for="description">Write a description for your task:</label>
+            <input type="text" name="description" value="<?php echo $description ?>" placeholder="Description for task" required />
+            <?php
+            if ($edit) :
+                $edit = false;
+                //echo $title; 
+            ?>
+                <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="update">Update</button>
 
-        <?php else : ?>
-            <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="save">Save</button>
-        <?php endif; ?>
-    </form>
-</div>
+            <?php else : ?>
+                <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="save">Save</button>
+            <?php endif; ?>
+        </form>
+</main>
 </body>
 <?php
 require_once 'footer.php';
