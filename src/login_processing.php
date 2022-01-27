@@ -29,6 +29,8 @@ if (isset($_POST["login"])) {
     //findUser($conn, $_POST['username'], $_POST['password']);
     $_SESSION['permitted'] = findUser($conn, $_POST['username'], $_POST['password']);
     if ($_SESSION['permitted']) {
+        $_SESSION['user_id'] = getUserId($conn, $_POST['username'], $_POST['password']);
+        $_SESSION['msg'] = "getUserId returned " . $_SESSION['user_id'];
         header("Location: tasks.php");
         exit();
     } else {
@@ -115,6 +117,21 @@ function findUser($conn, $username, $password)
     }
 }
 
+function getUserId($conn, $username) {
+    try {
+        //$psw_hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "SELECT user_id FROM users WHERE username = :username";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            ':username' => $username
+        ]);
+        // var_dump($stmt);
+        $msg = $stmt->fetch()['user_id'];
+    } catch (Exception $e) {
+        $msg = "Caught exception: " . $e->getMessage();
+    }
+    return $msg;
+}
 
 function checkUniqueUser($conn, $username){
     try {
@@ -128,8 +145,4 @@ function checkUniqueUser($conn, $username){
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
-}
-
-function updateRole($conn)
-{
 }

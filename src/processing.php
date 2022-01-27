@@ -5,8 +5,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 //require_once "login_processing.php";
 require_once "db.php";
 
-$_SESSION['processing'] = 'processing';
-
 $_SESSION['edit'] = false;
 $_SESSION['task_id'] = 0;
 $_SESSION['title'] = '';
@@ -19,9 +17,11 @@ $description = "";
 $dbparams = ['db', 'db', 'user', 'secret'];
 
 
+//if (isset($))
+
 if (isset($_POST['save'])) {
     $conn = connectToDbPdo($dbparams);
-    createTask($conn, $_POST['title'], $_POST['description']);
+    createTask($conn, $_POST['title'], $_POST['description'], $_SESSION['user_id']);
     header("location: tasks.php");
     exit(); // do I need this?
 }
@@ -67,6 +67,7 @@ if (isset($_GET['completed'])) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // debug
+$_SESSION['processing'] = 'processing';
 var_dump($_SESSION['processing']);
 var_dump($_SESSION['login_processing']);
 var_dump($_SESSION['index']);
@@ -74,50 +75,34 @@ var_dump($_SESSION['tasks']);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // functions
 
-// // connect to database and return db object
-// function connectToDbPdo($dbparams)
-// {
-//     $dbname = $dbparams[0];
-//     $host = $dbparams[1];
-//     $user = $dbparams[2];
-//     $psw = $dbparams[3];
-//     try {
-//         //print "host: {$host}, user: {$user}, psw: {$psw}, dbname: {$dbname}<br>";
-//         $connection = new PDO("mysql:dbname={$dbname};host={$host}", "{$user}", "{$psw}", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-//         //isset($connection) ? print "Connected" : "Not connected"; 
-//     } catch (PDOException $e) {
-//         echo "Error: " . $e->getMessage();
-//     } finally {
-//         return $connection;
-//     }
-// }
 
 // create/ insert task
-function createTask($conn, $title, $description)
+function createTask($conn, $title, $description, $user_id)
 {
     try {
-        $sql = "INSERT INTO tasks (title, description) VALUES (:title, :description)";
+        $sql = "INSERT INTO tasks (title, description, user_id) VALUES (:title, :description, :user_id)";
         $stmt = $conn->prepare($sql); //because named params are not natively supported by mysqli
         $stmt->execute([
             ':title' => htmlspecialchars($title),
-            ':description' => htmlspecialchars($description)
+            ':description' => htmlspecialchars($description),
+            ':user_id' => $user_id
         ]);
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 }
 
-// get all rows from database
-function getAllTasks($conn)
-{
-    try {
-        $sql = "SELECT * FROM tasks";
-        $data = $conn->query($sql)->fetchAll();
-        return $data;
-    } catch (Exception $e) {
-        echo 'Caught exception: ',  $e->getMessage(), "\n";
-    }
-}
+// // get all rows from database
+// function getAllTasks($conn)
+// {
+//     try {
+//         $sql = "SELECT * FROM tasks";
+//         $data = $conn->query($sql)->fetchAll();
+//         return $data;
+//     } catch (Exception $e) {
+//         echo 'Caught exception: ',  $e->getMessage(), "\n";
+//     }
+// }
 
 // get one task/ row based on ID
 function getOneRow($conn, $task_id)
@@ -171,7 +156,7 @@ function deleteTask($conn, $task_id)
 function toggleCompleted($conn, $task_id)
 {
     try {
-        $row = getOneRow($conn, $task_id);
+        $row = getOneRow($conn, $task_id); 
         $completed = $row['completed'];
         //echo $completed;
         $sql = "UPDATE tasks set completed = -:completed WHERE task_id = :task_id";
@@ -180,6 +165,24 @@ function toggleCompleted($conn, $task_id)
             ':task_id' => $task_id,
             ':completed' => $completed
         ]);
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
+}
+
+
+// get all rows from database for permitted, logged-in user, invoke this func() directly after login
+function fetchAllUserTasks($conn, $user_id)
+{
+    try {
+    echo 'test';
+    $sql = "SELECT * FROM tasks WHERE user_id = :user_id";
+    $stmt = $conn->prepare($sql); 
+        $stmt->execute([
+            ':user_id' => $user_id
+        ]);
+        $rows = $stmt->fetchAll();
+        return $rows;
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
@@ -195,7 +198,3 @@ function deleteAllCompleted($conn)
     echo 'test';
 }
 
-
-
-// 
-//header('Location: tasks.php');

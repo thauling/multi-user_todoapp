@@ -19,7 +19,10 @@ if (isset($_GET)) {
 
 $dbparams = ['db', 'db', 'user', 'secret'];
 $conn = connectToDbPdo($dbparams);
-$rows = getAllTasks($conn);
+
+$rows = fetchAllUserTasks($conn, $_SESSION['user_id']);
+echo "user id: " . $_SESSION['user_id'];
+//$rows = getAllTasks($conn);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // debug
@@ -37,7 +40,7 @@ var_dump($_SESSION['permitted']);
     <table class="bg-gray-300 m-0 p-0 table w-full">
         <thead class="table-header-group">
             <tr class="table-row">
-                <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">ID</th>
+               <!-- <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">ID</th> -->
                 <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Title</th>
                 <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Description</th>
                 <th class="bg-teal-700 text-gray-200 border text-left px-1 py-1">Created</th>
@@ -47,7 +50,7 @@ var_dump($_SESSION['permitted']);
         <?php
         foreach ($rows as $row) : ?>
             <tr class="table-row">
-                <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?= $row['task_id']; ?></td>
+               <!-- <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?= $row['task_id']; ?></td> -->
                 <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?= $row['title']; ?></td>
                 <td class="border border-gray-400 text-teal-900 table-cell bg-gray-200"><?= $row['description']; ?></td>
                 <!-- <td><?= $row['completed']; ?></td> -->

@@ -21,7 +21,7 @@ FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 INSERT INTO `users` (`username`, `email`, `psw_hash`, `created`)
-VALUES ('root', 'root@root.com', 'root', now());
+VALUES ('root', 'root@root.com', '$2y$10$jMNOug.OH1RGBPLpSBdVf.vxOf7AHfQ7n30m/I58yE6vpX0uow04.', now());
 
 INSERT INTO `tasks` (`title`, `description`)
 VALUES ('Finish this app', 'Really write ALL the code...');
