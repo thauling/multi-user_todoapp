@@ -23,7 +23,7 @@ if (isset($_POST["cancel"])) {
 
 if (isset($_POST["login"])) {
     $_SESSION['login'] = $_POST["login"];
-    $_SESSION['login_processing'] = 'login_create-login';
+  //  $_SESSION['login_processing'] = 'login_create-login';
     $_SESSION['permitted'] = findUser($conn, $_POST['username'], $_POST['password']);
     if ($_SESSION['permitted']) {
         $_SESSION['user_id'] = getUserId($conn, $_POST['username'], $_POST['password']);
@@ -98,6 +98,8 @@ function createUser($conn, $username, $email, $password, $password_confirm)
 function findUser($conn, $username, $password)
 {
     try {
+// need to add function to check if user exists!
+
         $sql = "SELECT psw_hash FROM users WHERE username = :username";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
