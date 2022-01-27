@@ -30,6 +30,9 @@ var_dump($_SESSION['tasks']);
     <form method="post" action="login_processing.php">
         <button class="bg-red-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="create-user">Create new user</button>
     </form>
+    <?php if (isset($_SESSION['msg'])) {
+        echo "<p><b>" . $_SESSION['msg'] . "<b></p>";
+        } ?>
 </main>
 </body>
 <?php

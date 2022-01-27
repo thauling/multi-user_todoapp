@@ -23,6 +23,9 @@ $pswrepeat = '';
         <input class="pl-2" type="password" name="pswrepeat" value="<?php echo $pswrepeat ?>" placeholder="Repeat your password" minlength="8" required />
         <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="user-submit">Add new user</button>
     </form>
+    <?php if (isset($_SESSION['msg'])) {
+        echo "<p><b>" . $_SESSION['msg'] . "<b></p>";
+        } ?>
 </main>
 
 </body>
