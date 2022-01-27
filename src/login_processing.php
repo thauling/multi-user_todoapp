@@ -1,7 +1,7 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
-  }
+}
 require_once "db.php";
 
 
@@ -23,7 +23,7 @@ if (isset($_POST["cancel"])) {
 
 if (isset($_POST["login"])) {
     $_SESSION['login'] = $_POST["login"];
-  //  $_SESSION['login_processing'] = 'login_create-login';
+    //  $_SESSION['login_processing'] = 'login_create-login';
     $_SESSION['permitted'] = findUser($conn, $_POST['username'], $_POST['password']);
     if ($_SESSION['permitted']) {
         $_SESSION['user_id'] = getUserId($conn, $_POST['username'], $_POST['password']);
@@ -31,7 +31,7 @@ if (isset($_POST["login"])) {
         header("Location: tasks.php");
         exit();
     } else {
-        $_SESSION['msg'] = "Password is incorrect.";
+        $_SESSION['msg'] = "Password is incorrect or user does not exist.";
         header("Location: index.php");
         exit();
     }
@@ -46,11 +46,11 @@ if (isset($_POST["create-user"])) {
 
 if (isset($_POST["user-submit"])) {
     $_SESSION['user-submit'] = $_POST["user-submit"];
-    if (!checkUniqueUser($conn, $_POST['username'])) {
-    $msg = createUser($conn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['password']);
-    $_SESSION['msg'] = "User account created." . " " . $msg;
-    header("Location: index.php");
-    exit();
+    if (!checkIfUserExits($conn, $_POST['username'])) {
+        $msg = createUser($conn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['password']);
+        $_SESSION['msg'] = "User account created." . " " . $msg;
+        header("Location: index.php");
+        exit();
     } else {
         $_SESSION['msg'] = "User and/or email already exists, be more creative.";
         header("Location: createuser.php");
@@ -76,7 +76,6 @@ function createUser($conn, $username, $email, $password, $password_confirm)
         $email = trim($email);
         if ($password !== $password_confirm) {
             $msg = "Passwords do not match.";
-            //echo "Passwords do not match.";
         } else {
             $psw_hash = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (username, email, psw_hash) VALUES (:username, :email, :psw_hash)";
@@ -98,32 +97,31 @@ function createUser($conn, $username, $email, $password, $password_confirm)
 function findUser($conn, $username, $password)
 {
     try {
-// need to add function to check if user exists!
-
-        $sql = "SELECT psw_hash FROM users WHERE username = :username";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([
-            ':username' => $username
-        ]);
-        // var_dump($stmt);
-        $psw_hash = $stmt->fetch()['psw_hash'];
-        //echo $psw_hash . "<br>";
-        // if ($row['username']) {
-        return password_verify($password, $psw_hash);
+        // need to add function to check if user exists!
+        if (checkIfUserExits($conn, $username)) {
+            $sql = "SELECT psw_hash FROM users WHERE username = :username";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':username' => $username
+            ]);
+            $psw_hash = $stmt->fetch()['psw_hash'];
+            return password_verify($password, $psw_hash);
+        } else {
+            $_SESSION['msg'] = "User does not exist.";
+        }
     } catch (Exception $e) {
-        echo 'Caught exception: ',  $e->getMessage(), "\n";
+        $_SESSION['msg'] = "Caught exception: " . $e->getMessage();
     }
 }
 
-function getUserId($conn, $username) {
+function getUserId($conn, $username)
+{
     try {
-        //$psw_hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
             ':username' => $username
         ]);
-        // var_dump($stmt);
         $msg = $stmt->fetch()['user_id'];
     } catch (Exception $e) {
         $msg = "Caught exception: " . $e->getMessage();
@@ -131,7 +129,8 @@ function getUserId($conn, $username) {
     return $msg;
 }
 
-function checkUniqueUser($conn, $username){
+function checkIfUserExits($conn, $username)
+{
     try {
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $stmt = $conn->prepare($sql);
@@ -139,8 +138,12 @@ function checkUniqueUser($conn, $username){
             ':username' => $username
         ]);
         return $stmt->rowCount() >= 1;
-
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 }
+
+// function checkIfExist($conn, $username)
+// {
+//     return true;
+// }
