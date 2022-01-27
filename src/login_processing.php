@@ -4,16 +4,15 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
   }
 require_once "db.php";
 
-//$_SESSION['msg'] = '';
 
 $dbparams = ['db', 'db', 'user', 'secret'];
 
 $conn = connectToDbPdo($dbparams);
 
-
 if (isset($_POST["logout"])) {
     $_SESSION['logout'] = $_POST["logout"];
     $_SESSION['permitted'] = false;
+    $_SESSION['msg'] = "Logged out.";
     header("Location: index.php");
 }
 
@@ -25,15 +24,14 @@ if (isset($_POST["cancel"])) {
 if (isset($_POST["login"])) {
     $_SESSION['login'] = $_POST["login"];
     $_SESSION['login_processing'] = 'login_create-login';
-    // $_SESSION['login'] = false;
-    //findUser($conn, $_POST['username'], $_POST['password']);
     $_SESSION['permitted'] = findUser($conn, $_POST['username'], $_POST['password']);
     if ($_SESSION['permitted']) {
         $_SESSION['user_id'] = getUserId($conn, $_POST['username'], $_POST['password']);
-        $_SESSION['msg'] = "getUserId returned " . $_SESSION['user_id'];
+        $_SESSION['msg'] =  $_POST['username'] . " is logged in.";
         header("Location: tasks.php");
         exit();
     } else {
+        $_SESSION['msg'] = "Password is incorrect.";
         header("Location: index.php");
         exit();
     }
@@ -42,14 +40,12 @@ if (isset($_POST["login"])) {
 if (isset($_POST["create-user"])) {
     $_SESSION['msg'] = '';
     $_SESSION['login_processing'] = 'login_create-user';
-    // $_SESSION['login'] = true;
     header("Location: createuser.php");
     exit();
 }
 
 if (isset($_POST["user-submit"])) {
     $_SESSION['user-submit'] = $_POST["user-submit"];
-    //$_SESSION['login'] = true;
     if (!checkUniqueUser($conn, $_POST['username'])) {
     $msg = createUser($conn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['password']);
     $_SESSION['msg'] = "User account created." . " " . $msg;
@@ -63,11 +59,11 @@ if (isset($_POST["user-submit"])) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // debug
-$_SESSION['login_processing'] = 'loginprocessing';
-var_dump($_SESSION['processing']);
-var_dump($_SESSION['login_processing']);
-var_dump($_SESSION['index']);
-var_dump($_SESSION['tasks']);
+// $_SESSION['login_processing'] = 'loginprocessing';
+// var_dump($_SESSION['processing']);
+// var_dump($_SESSION['login_processing']);
+// var_dump($_SESSION['index']);
+// var_dump($_SESSION['tasks']);
 //////////////////////////////////////////////////////////////////////////////////////////////
 // functions
 

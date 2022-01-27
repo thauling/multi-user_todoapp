@@ -7,7 +7,6 @@ $username = '';
 $email = '';
 $password = '';
 $pswrepeat = '';
-//$login = $_SESSION['login'];
 
 ?>
 <main class="h-full w-full p-4 border-4 border-teal-400 bg-gray-100">
