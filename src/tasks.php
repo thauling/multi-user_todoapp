@@ -78,18 +78,18 @@ $rows = fetchAllUserTasks($conn, $_SESSION['user_id']);
             if ($edit) :
                 $edit = false;
             ?>
-                <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="update">Update</button>
+                <button class="bg-gray-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="update">Update</button>
 
             <?php else : ?>
-                <button class="bg-teal-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="save">Save</button>
+                <button class="bg-gray-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="save">Save</button>
             <?php endif; ?>
         </form>
         <form method="post" action="processing.php">
-        <button class="bg-gray-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="completeall">Complete All</button>
+        <button class="bg-green-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="completeall">Complete All</button>
                 <button class="bg-red-700 text-gray-200 mt-2 w-56 text-center" type="submit" name="deleteall">Delete All</button>
         </form>
         <?php else: ?>
-            <h2>You are logged out, please log in on <a href="index.php" homescreen. ></a></h2>
+            <h2>You are logged out, please log in on <a class="bg-teal-700 text-gray-200 mt-2 p-1 text-center" href="index.php">homescreen</a>.</h2>
             <?php endif; ?>
 </main>
 </body>
