@@ -24,14 +24,12 @@ if ($_SESSION['permitted']) {
     }
 
     if (isset($_GET['delete'])) {
-       // $conn = connectToDbPdo($dbparams);
         deleteTask($conn, $_GET['delete']);
         returnToTasks();
     }
 
 
     if (isset($_GET['edit'])) {
-        //$conn = connectToDbPdo($dbparams);
         $_SESSION['edit'] = true;
         $row = getOneRow($conn, $_GET['edit']);
         $_SESSION['task_id'] = $row['task_id'];
@@ -40,7 +38,6 @@ if ($_SESSION['permitted']) {
     }
 
     if (isset($_POST['update'])) {
-        //$conn = connectToDbPdo($dbparams);
         updateTask($conn,  $_POST['title'], $_POST['description'], $_POST['task_id']);
         $_SESSION['edit'] = false;
         $_SESSION['title'] = '';
@@ -49,7 +46,6 @@ if ($_SESSION['permitted']) {
     }
 
     if (isset($_GET['completed'])) {
-        //$conn = connectToDbPdo($dbparams);
         toggleCompleted($conn, $_GET['completed']);
         returnToTasks();
     }
@@ -60,22 +56,13 @@ if ($_SESSION['permitted']) {
     }
 
     if (isset($_POST['completeall'])) {
-       // $conn = connectToDbPdo($dbparams);
         setAllCompleted($conn, $_SESSION['user_id']);
         returnToTasks();
     }
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-// debug
-// $_SESSION['processing'] = 'processing';
-// var_dump($_SESSION['processing']);
-// var_dump($_SESSION['login_processing']);
-// var_dump($_SESSION['index']);
-// var_dump($_SESSION['tasks']);
-///////////////////////////////////////////////////////////////////////////////////////////////
+
 // functions
 
-// return to tasks.php
 function returnToTasks()
 {
     header("location: tasks.php");

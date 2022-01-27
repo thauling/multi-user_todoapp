@@ -22,14 +22,6 @@ $conn = connectToDbPdo($dbparams);
 
 $rows = fetchAllUserTasks($conn, $_SESSION['user_id']);
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-// debug
-// $_SESSION['tasks'] = 'tasks';
-// var_dump($_SESSION['processing']);
-// var_dump($_SESSION['login_processing']);
-// var_dump($_SESSION['index']);
-// var_dump($_SESSION['tasks']);
-// var_dump($_SESSION['permitted']);
 ?>
 
 <main class="h-full w-full m-0 p-0 bg-gray-100">

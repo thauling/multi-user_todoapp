@@ -57,14 +57,6 @@ if (isset($_POST["user-submit"])) {
     }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-// debug
-// $_SESSION['login_processing'] = 'loginprocessing';
-// var_dump($_SESSION['processing']);
-// var_dump($_SESSION['login_processing']);
-// var_dump($_SESSION['index']);
-// var_dump($_SESSION['tasks']);
-//////////////////////////////////////////////////////////////////////////////////////////////
 // functions
 
 function createUser($conn, $username, $email, $password, $password_confirm)
