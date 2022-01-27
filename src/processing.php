@@ -1,7 +1,11 @@
 <?php
-//session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  session_start();
+}
 //require_once "login_processing.php";
 require_once "db.php";
+
+$_SESSION['processing'] = 'processing';
 
 $_SESSION['edit'] = false;
 $_SESSION['task_id'] = 0;
@@ -60,6 +64,13 @@ if (isset($_GET['completed'])) {
     //echo $_GET['completed'];
     toggleCompleted($conn, $_GET['completed']);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// debug
+var_dump($_SESSION['processing']);
+var_dump($_SESSION['login_processing']);
+var_dump($_SESSION['index']);
+var_dump($_SESSION['tasks']);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // functions
 

@@ -1,16 +1,21 @@
 <?php
-//session_start();
+session_start();
 require_once 'login_processing.php';
 require_once 'header.php';
 
 $user_id = '';
 $username = '';
-//$email = '';
 $password = '';
-$permitted = $_SESSION['permitted'];
+//$permitted = $_SESSION['permitted'];
 //$pswrepeat = '';
 //$login = $_SESSION['login'];
-var_dump ($_SESSION['permitted']);
+///////////////////////////////////////////////////////////////////////////////////////////////
+// debug
+$_SESSION['index'] = 'index';
+var_dump($_SESSION['processing']);
+var_dump($_SESSION['login_processing']);
+var_dump($_SESSION['index']);
+var_dump($_SESSION['tasks']);
 ?>
 
 <main class="h-full w-full p-4 border-4 border-teal-400 bg-gray-100">

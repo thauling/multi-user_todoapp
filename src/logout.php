@@ -1,6 +1,16 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+  }
 require_once "header.php";
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+// debug
+var_dump($_SESSION['processing']);
+var_dump($_SESSION['login_processing']);
+var_dump($_SESSION['index']);
+var_dump($_SESSION['tasks']);
+var_dump($_SESSION['permitted']);
 ?>
 
 <body>
