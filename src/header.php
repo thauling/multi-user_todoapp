@@ -18,7 +18,8 @@
         <nav class="text-gray-600 pb-2">
             <ul class="flex items-center">
                 <li class="font-bold pr-3 pl-2"><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
+                <li class="pr-3"><a href="about.php">About</a></li>
+                <li class="text-teal-300 bg-gray-900 font-medium"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>

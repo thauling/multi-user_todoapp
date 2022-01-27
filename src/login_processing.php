@@ -1,13 +1,27 @@
 <?php
 session_start();
-require_once "processing.php";
+require_once "db.php";
 
 //$_SESSION['login'] = true;
 $_SESSION['permitted'] = false;
+$dbparams = ['db', 'db', 'user', 'secret'];
+
 $conn = connectToDbPdo($dbparams);
 
 
+if (isset($_POST["logout"])) {
+    $_SESSION['logout'] = $_POST["logout"];
+    $_SESSION['permitted'] = false;
+    header("Location: index.php");
+}
+
+if (isset($_POST["cancel"])) {
+    $_SESSION['cancel'] = $_POST["cancel"];
+    header("Location: tasks.php");
+}
+
 if (isset($_POST["login"])) {
+    $_SESSION['login'] = $_POST["login"];
     // $_SESSION['login'] = false;
     //findUser($conn, $_POST['username'], $_POST['password']);
     $_SESSION['permitted'] = findUser($conn, $_POST['username'], $_POST['password']);
@@ -27,6 +41,7 @@ if (isset($_POST["create-user"])) {
 }
 
 if (isset($_POST["user-submit"])) {
+    $_SESSION['user-submit'] = $_POST["user-submit"];
     //$_SESSION['login'] = true;
     // for testing this
     $_POST['role'] = 1;
@@ -37,6 +52,26 @@ if (isset($_POST["user-submit"])) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // functions
+
+// // connect to database and return db object
+// function connectToDbPdo($dbparams)
+// {
+//     $dbname = $dbparams[0];
+//     $host = $dbparams[1];
+//     $user = $dbparams[2];
+//     $psw = $dbparams[3];
+//     try {
+//         //print "host: {$host}, user: {$user}, psw: {$psw}, dbname: {$dbname}<br>";
+//         $connection = new PDO("mysql:dbname={$dbname};host={$host}", "{$user}", "{$psw}", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+//         //isset($connection) ? print "Connected" : "Not connected"; 
+//     } catch (PDOException $e) {
+//         echo "Error: " . $e->getMessage();
+//     } finally {
+//         return $connection;
+//     }
+// }
+
+
 function createUser($conn, $username, $email, $password, $password_confirm, $role)
 {
     try {
@@ -45,6 +80,8 @@ function createUser($conn, $username, $email, $password, $password_confirm, $rol
         // $hash_confirm = password_hash($password_confirm, PASSWORD_DEFAULT);
         $password = htmlspecialchars($password);
         $password_confirm = htmlspecialchars($password_confirm);
+        $username = trim($username);
+        $email = trim($email);
         if ($password !== $password_confirm) {
             $msg = "Passwords do not match.";
             //echo "Passwords do not match.";
